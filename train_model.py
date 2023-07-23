@@ -21,7 +21,7 @@ def setup_logger(log_file):
 logger = setup_logger("logs.log")
 
 def get_data(file_path):
-    df = pd.read_csv(file_path)
+    data = pd.read_csv(file_path)
     data = data.loc[~data.Close.isna()].reset_index(drop=True)
     logger.info(data.shape)
     

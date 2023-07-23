@@ -9,10 +9,19 @@ The [dataset](https://www.kaggle.com/datasets/mczielinski/bitcoin-historical-dat
 **Description:** 
 Bitcoin, the pioneering cryptocurrency, has gained significant popularity and attention in recent years. Its decentralized nature, limited supply, and potential for high returns have made it a preferred investment option for individuals and institutions. As a result, predicting the price of Bitcoin has become increasingly important for various stakeholders, including investors, traders, financial institutions, and policymakers.
 
+<details>
+    <summary>Click for more description</summary>
+
 Predicting Bitcoin prices has significant implications for various stakeholders, including investors, traders, risk managers, financial planners, and policymakers. Accurate price forecasts empower individuals and institutions to make informed investment decisions, manage risks effectively, develop trading strategies, optimize asset allocations, and assess the impact of cryptocurrencies on the broader economy. By leveraging advanced analytical techniques, predictive models can enhance market efficiency, increase profitability, and contribute to the overall understanding of the cryptocurrency market dynamics.
+
+The dataset contains base data on the trading volume and types of a price within a period: Open, Close, Max, Min. The prediction focuses on the *Close* price, i.e. the final price at a period end.
+</details>
 
 **Set up environment**
 The environment includes all the required packages installed via [requirements.txt](requirements.txt) file.
 
 **Baseline Run**
-Baseline located here: *baseline.ipynb*
+Baseline model set, run and located here: *[baseline.ipynb](baseline.ipynb)*.
+
+**Logging**
+To keep logs the build 
