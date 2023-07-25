@@ -1,30 +1,85 @@
+import joblib
 import numpy as np
 import pandas as pd
 import seaborn as sns
+import time
 import xgboost as xgb
 from datetime import datetime
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import mean_squared_error, mean_absolute_error
+from sklearn.pipeline import Pipeline
 from sklearn.preprocessing import MinMaxScaler
 
-import logging
+import utils
 
-def setup_logger(log_file):
-    logger = logging.getLogger("logger")
-    logger.setLevel(logging.INFO)
-    file_handler = logging.FileHandler(log_file)
-    file_handler.setFormatter(logging.Formatter('%(asctime)s - %(levelname)s - %(message)s'))
-    logger.addHandler(file_handler)
-
-    return logger
-
-logger = setup_logger("logs.log")
+params = {
+    "objective": "reg:squarederror",
+    "eval_metric": "rmse"
+}
 
 def get_data(file_path):
+    st = time.time()
     data = pd.read_csv(file_path)
     data = data.loc[~data.Close.isna()].reset_index(drop=True)
-    logger.info(data.shape)
+    utils.logger.info(f"Data collected in {time.time()-st :.2f}s, its shape: {data.shape}" )
     
-    return df
+    return data
 
-data = get_data(file_path="data/bitcoin-historical-data.zip")
+def preprocess(data):
+    st = time.time()
+    utils.logger.info(f"Preprocessing started..." )
+    # convert unix to datetime
+    data["dt"] = data.Timestamp.apply(lambda x: datetime.fromtimestamp(x))
+
+    # generate datetime features
+    data["month"] = data.dt.apply(lambda v: v.month)
+    data["day"] = data.dt.apply(lambda v: v.day)
+    data["weekday"] = data.dt.apply(lambda v: v.weekday())
+    data["hour"] = data.dt.apply(lambda v: v.hour)
+
+    # drop non-significant columns
+    data = data.drop(["Timestamp", "dt"], axis=1)
+
+    # seet the target & split
+    target = "Close"
+    xtr, xts, ytr, yts = train_test_split(
+        data.drop(target, axis=1), 
+        data[target], 
+        test_size=0.2, 
+        random_state=42
+    )
+
+    utils.logger.info(f"Data preprocessed in {time.time()-st :.2f}s" )
+    utils.logger.info(f"Resulting shapes are {xtr.shape, xts.shape, ytr.shape, yts.shape}" )
+    
+    return xtr, xts, ytr, yts
+
+def fit_model(xtr, xts, ytr, yts):
+    st = time.time()
+
+    # init the pipeline
+    pipeline = Pipeline([
+        ("scaler", MinMaxScaler()), # normalization
+        ("model", xgb.XGBRegressor(**params)) # fit
+    ])
+
+    # fit & predict
+    pipeline.fit(xtr, ytr)
+    ypr = pipeline.predict(xts)
+
+    metrics = {
+        "mae": mean_absolute_error(yts, ypr),
+        "mse": mean_squared_error(yts, ypr),
+        "rmse": np.sqrt(mean_squared_error(yts, ypr))
+    }
+
+    file_path = "models/model.joblib"
+    joblib.dump(pipeline, file_path)
+
+
+    utils.logger.info(f"Model fitted in {time.time()-st :.2f}s" )
+    utils.logger.info(f"...and saved as {file_path}" )
+    utils.logger.info(f"Metrics are: {metrics}" )
+
+    return pipeline
+    

@@ -7,6 +7,7 @@ The [dataset](https://www.kaggle.com/datasets/mczielinski/bitcoin-historical-dat
 ```
 
 **Description:** 
+
 Bitcoin, the pioneering cryptocurrency, has gained significant popularity and attention in recent years. Its decentralized nature, limited supply, and potential for high returns have made it a preferred investment option for individuals and institutions. As a result, predicting the price of Bitcoin has become increasingly important for various stakeholders, including investors, traders, financial institutions, and policymakers.
 
 <details>
@@ -18,10 +19,18 @@ The dataset contains base data on the trading volume and types of a price within
 </details>
 
 **Set up environment**
+
 The environment includes all the required packages installed via [requirements.txt](requirements.txt) file.
 
 **Baseline Run**
+
 Baseline model set, run and located here: *[baseline.ipynb](baseline.ipynb)*.
 
 **Logging**
-To keep logs the build 
+
+To keep logs the built-in logger with the data logged in *[logs.log](logs.log)* 
+<details>
+    <summary> Example of the output: </summary>
+
+    ![logs](images/log.png)
+</details>
