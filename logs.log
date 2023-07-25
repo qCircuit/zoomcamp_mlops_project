@@ -54,3 +54,28 @@
 2023-07-25 11:21:42,211 - INFO - ...and saved as models/model.joblib
 2023-07-25 11:21:42,211 - INFO - Metrics are: {'mae': 8.558920788450871, 'mse': 245.44712538602886, 'rmse': 15.666752228398483}
 2023-07-25 11:21:42,212 - INFO - Model fit sequence completed
+2023-07-25 11:37:10,437 - INFO - Initializing model fit sequence...
+2023-07-25 11:37:13,581 - INFO - Data collected in 3.14s, its shape: (3613769, 8)
+2023-07-25 11:37:13,581 - INFO - Preprocessing started...
+2023-07-25 11:37:32,143 - INFO - Data preprocessed in 18.56s
+2023-07-25 11:37:32,144 - INFO - Resulting shapes are ((2891015, 10), (722754, 10), (2891015,), (722754,))
+2023-07-25 11:39:16,780 - INFO - Model fitted in 104.63s
+2023-07-25 11:39:16,780 - INFO - ...and saved as models/model.joblib
+2023-07-25 11:39:16,781 - INFO - Metrics are: {'mae': 8.558920788450871, 'mse': 245.44712538602886, 'rmse': 15.666752228398483}
+2023-07-25 11:39:16,781 - INFO - Model fit sequence completed
+2023-07-25 12:15:49,909 - INFO - Initializing parameter optimization sequence...
+2023-07-25 12:15:52,744 - INFO - Data collected in 2.83s, its shape: (3613769, 8)
+2023-07-25 12:15:52,745 - INFO - Preprocessing started...
+2023-07-25 12:16:08,892 - INFO - Data preprocessed in 16.15s
+2023-07-25 12:16:08,892 - INFO - Resulting shapes are ((2891015, 10), (722754, 10), (2891015,), (722754,))
+2023-07-25 13:30:24,866 - INFO - Params optimization completed in 4455.97s
+2023-07-25 13:30:24,867 - INFO - Parameters optimization sequence completed
+2023-07-25 15:31:49,500 - INFO - Initializing model fit sequence...
+2023-07-25 15:31:52,273 - INFO - Data collected in 2.77s, its shape: (3613769, 8)
+2023-07-25 15:31:52,273 - INFO - Preprocessing started...
+2023-07-25 15:32:08,283 - INFO - Data preprocessed in 16.01s
+2023-07-25 15:32:08,283 - INFO - Resulting shapes are ((2891015, 10), (722754, 10), (2891015,), (722754,))
+2023-07-25 15:33:45,691 - INFO - Model fitted in 97.41s
+2023-07-25 15:33:45,693 - INFO - ...and saved as models/model.joblib
+2023-07-25 15:33:45,694 - INFO - Metrics are: {'mae': 8.558920788450871, 'mse': 245.44712538602886, 'rmse': 15.666752228398483}
+2023-07-25 15:33:45,694 - INFO - Model fit sequence completed

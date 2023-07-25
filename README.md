@@ -32,12 +32,8 @@ To keep logs the built-in logger with the data logged in *[logs.log](logs.log)*
 
 ![logs](images/log.png)
 
-a
+**Experiment Tracking""
 
-![logs](https://github.com/qCircuit/zoomcamp_project/blob/00243caf926b2dad46bc05ec766abdcf91efe2c0/images/log.png)
+Experiment tracking is perfromed by mlflow. The result of hyperparameters tuning is the logged metrics and models for each combination of the model's params:
 
-<details>
-    <summary> Example of the output: </summary>
-
-    
-</details>
+![mlflow](images/mlflow.png)

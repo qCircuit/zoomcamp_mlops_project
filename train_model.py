@@ -1,11 +1,12 @@
 import joblib
+import mlflow
 import numpy as np
 import pandas as pd
 import seaborn as sns
 import time
 import xgboost as xgb
 from datetime import datetime
-from sklearn.model_selection import train_test_split
+from sklearn.model_selection import train_test_split, ParameterGrid
 from sklearn.metrics import mean_squared_error, mean_absolute_error
 from sklearn.pipeline import Pipeline
 from sklearn.preprocessing import MinMaxScaler
@@ -81,5 +82,34 @@ def fit_model(xtr, xts, ytr, yts):
     utils.logger.info(f"...and saved as {file_path}" )
     utils.logger.info(f"Metrics are: {metrics}" )
 
-    return pipeline
+    return pipeline, metrics
+
+def params_optim(xtr, xts, ytr, yts):
+    st = time.time()
+    param_grid = {
+        'max_depth': [3, 5, 7],
+        'learning_rate': [0.01, 0.1, 0.2],
+        'n_estimators': [100, 200, 300]
+    }
+
+    for i, params in enumerate(ParameterGrid(param_grid)):
+        with mlflow.start_run():
+            mlflow.set_tag("version", f"0.0.{i}")
+            mlflow.log_params(params)
+
+            xgb_reg = xgb.XGBRegressor(objective='reg:squarederror', **params)
+            xgb_reg.fit(xtr, ytr)
+
+            ypr = xgb_reg.predict(xts)
+            metrics = {
+                "mae": mean_absolute_error(yts, ypr),
+                "mse": mean_squared_error(yts, ypr),
+                "rmse": np.sqrt(mean_squared_error(yts, ypr))
+            }
+
+            mlflow.log_metrics(metrics)
+            mlflow.sklearn.log_model(xgb_reg, "model")
     
+    utils.logger.info(f"Params optimization completed in {time.time()-st :.2f}s" )
+
+    return None
