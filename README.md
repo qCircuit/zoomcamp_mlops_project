@@ -37,3 +37,32 @@ To keep logs the built-in logger with the data logged in *[logs.log](logs.log)*
 Experiment tracking is perfromed by mlflow. The result of hyperparameters tuning is the logged metrics and models for each combination of the model's params:
 
 ![mlflow](images/mlflow.png)
+
+**Orchestration**
+
+The project management processes are controlled and tracked via *prefect*:.
+
+![prefect](images/prefect.png)
+
+The prefect task of data retrival is set for 3 times of retry with 2 seconds delay:
+
+```
+@task(retries=3, retry_delay_seconds=2)
+def get_data(file_path):
+    ...
+
+```
+
+In the best case the model is updated permanently from an online datasource. The fit model is supported by built-in prefect logger:
+
+```
+@task(log_prints=True)
+def fit_model(xtr, xts, ytr, yts):
+    ...
+
+ ```
+
+Project infastructure is deployed with prefect to the git repo via:
+```
+prefect project init
+```

@@ -6,6 +6,7 @@ import seaborn as sns
 import time
 import xgboost as xgb
 from datetime import datetime
+from prefect import flow, task
 from sklearn.model_selection import train_test_split, ParameterGrid
 from sklearn.metrics import mean_squared_error, mean_absolute_error
 from sklearn.pipeline import Pipeline
@@ -15,9 +16,13 @@ import utils
 
 params = {
     "objective": "reg:squarederror",
-    "eval_metric": "rmse"
+    "eval_metric": "rmse",
+    "max_depth": 7,
+    "learning_rate": 0.1,
+    "n_estimators": 300
 }
 
+@task(retries=3, retry_delay_seconds=2)
 def get_data(file_path):
     st = time.time()
     data = pd.read_csv(file_path)
@@ -26,6 +31,7 @@ def get_data(file_path):
     
     return data
 
+@task
 def preprocess(data):
     st = time.time()
     utils.logger.info(f"Preprocessing started..." )
@@ -55,6 +61,7 @@ def preprocess(data):
     
     return xtr, xts, ytr, yts
 
+@task(log_prints=True)
 def fit_model(xtr, xts, ytr, yts):
     st = time.time()
 
@@ -84,6 +91,7 @@ def fit_model(xtr, xts, ytr, yts):
 
     return pipeline, metrics
 
+@task
 def params_optim(xtr, xts, ytr, yts):
     st = time.time()
     param_grid = {
@@ -113,3 +121,11 @@ def params_optim(xtr, xts, ytr, yts):
     utils.logger.info(f"Params optimization completed in {time.time()-st :.2f}s" )
 
     return None
+
+@flow
+def train_sequence():
+    data = get_data(file_path="data/bitcoin-historical-data.zip")
+    data = preprocess(data)
+    model, metrics = fit_model(data[0],data[1],data[2],data[3])
+
+    return model, metrics

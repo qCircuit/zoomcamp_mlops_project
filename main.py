@@ -24,9 +24,7 @@ if __name__ == '__main__':
             mlflow.set_tag("version", "0.1.0")
             mlflow.log_params(train_model.params)
             utils.logger.info("Initializing model fit sequence...")
-            data = train_model.get_data(file_path="data/bitcoin-historical-data.zip")
-            data = train_model.preprocess(data)
-            model, metrics = train_model.fit_model(data[0],data[1],data[2],data[3])
+            model, metrics = train_model.train_sequence()
             utils.logger.info("Model fit sequence completed")
             mlflow.log_metrics(metrics)
 

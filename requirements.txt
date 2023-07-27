@@ -1,6 +1,7 @@
 mlflow
 numpy
 pandas 
-sckikit-learn
+prefect
+scikit-learn
 seaborn
 xgboost
