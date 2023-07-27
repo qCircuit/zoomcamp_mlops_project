@@ -1,0 +1,3 @@
+{
+  "train-sequence": "train_model.py:train_sequence"
+}

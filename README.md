@@ -40,7 +40,7 @@ Experiment tracking is perfromed by mlflow. The result of hyperparameters tuning
 
 **Orchestration**
 
-The project management processes are controlled and tracked via *prefect*:.
+The project management processes are controlled and tracked via *prefect*:
 
 ![prefect](images/prefect.png)
 
@@ -53,7 +53,7 @@ def get_data(file_path):
 
 ```
 
-In the best case the model is updated permanently from an online datasource. The fit model is supported by built-in prefect logger:
+In the best case the model is updated permanently from an online datasource. The scheduler is set during the deployment. Additionaly the fit model is supported by built-in prefect logger:
 
 ```
 @task(log_prints=True)
@@ -62,7 +62,8 @@ def fit_model(xtr, xts, ytr, yts):
 
  ```
 
-Project infastructure is deployed with prefect to the git repo via:
+Project infastructure is deployed with prefect to the git repo and scheduled via:
 ```
 prefect project init
+prefect deploy train_model.py:train_sequence -n bitcoin_price_prediction -p bitcoin_price_prediction
 ```
