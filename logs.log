@@ -98,3 +98,61 @@
 2023-07-27 16:02:31,372 - INFO - ...and saved as models/model.joblib
 2023-07-27 16:02:31,373 - INFO - Metrics are: {'mae': 4.639182270671278, 'mse': 105.49554479100232, 'rmse': 10.271102413616676}
 2023-07-27 16:02:31,467 - INFO - Model fit sequence completed
+2023-07-28 12:53:40,270 - INFO - Initializing model fit sequence...
+2023-07-28 12:54:32,763 - INFO - Initializing model fit sequence...
+2023-07-28 12:54:35,988 - INFO - Data collected in 2.93s, its shape: (3613769, 8)
+2023-07-28 12:54:36,108 - INFO - Preprocessing started...
+2023-07-28 12:54:53,914 - INFO - Data preprocessed in 17.81s
+2023-07-28 12:54:53,914 - INFO - Resulting shapes are ((2891015, 10), (722754, 10), (2891015,), (722754,))
+2023-07-28 13:00:28,167 - INFO - Model fitted in 334.13s
+2023-07-28 13:00:28,167 - INFO - ...and saved as models/model.joblib
+2023-07-28 13:00:28,167 - INFO - Metrics are: {'mae': 4.639182270671278, 'mse': 105.49554479100232, 'rmse': 10.271102413616676}
+2023-07-28 13:00:28,255 - INFO - Model fit sequence completed
+2023-07-28 13:56:55,257 - INFO - Initializing model fit sequence...
+2023-07-28 13:56:58,757 - INFO - Data collected in 2.81s, its shape: (3613769, 8)
+2023-07-28 13:56:58,863 - INFO - Preprocessing started...
+2023-07-28 13:57:17,461 - INFO - Data preprocessed in 18.60s
+2023-07-28 13:57:17,462 - INFO - Resulting shapes are ((2891015, 10), (722754, 10), (2891015,), (722754,))
+2023-07-28 14:02:26,570 - INFO - Model fitted in 309.00s
+2023-07-28 14:02:26,570 - INFO - ...and saved as models/model.joblib
+2023-07-28 14:02:26,571 - INFO - Metrics are: {'mae': 4.639182270671278, 'mse': 105.49554479100232, 'rmse': 10.271102413616676}
+2023-07-28 14:02:26,655 - INFO - Model fit sequence completed
+2023-07-29 16:01:22,770 - INFO - Initializing model fit sequence...
+2023-07-29 16:02:13,067 - INFO - Initializing model fit sequence...
+2023-07-29 16:02:17,053 - INFO - Data collected in 3.18s, its shape: (3613769, 8)
+2023-07-29 16:02:17,161 - INFO - Preprocessing started...
+2023-07-29 16:02:41,814 - INFO - Data preprocessed in 24.65s
+2023-07-29 16:02:41,815 - INFO - Resulting shapes are ((2891015, 10), (722754, 10), (2891015,), (722754,))
+2023-07-29 16:09:59,379 - INFO - Model fitted in 437.41s
+2023-07-29 16:09:59,380 - INFO - ...and saved as models/model.joblib
+2023-07-29 16:09:59,380 - INFO - Metrics are: {'mae': 4.639182270671278, 'mse': 105.49554479100232, 'rmse': 10.271102413616676}
+2023-07-29 16:09:59,500 - INFO - Model fit sequence completed
+2023-07-29 19:39:47,672 - INFO - Data collected in 3.72s, its shape: (3613769, 8)
+2023-07-29 19:46:35,991 - INFO - Data collected in 3.36s, its shape: (3613769, 8)
+2023-07-29 19:46:35,994 - INFO - Preprocessing started...
+2023-07-29 19:46:36,000 - INFO - Data preprocessed in 0.01s
+2023-07-29 19:46:36,000 - INFO - Resulting shapes are ((2, 5), (1, 5), (2,), (1,))
+2023-07-29 19:46:36,001 - INFO - Preprocessing started...
+2023-07-29 19:46:36,006 - INFO - Data preprocessed in 0.00s
+2023-07-29 19:46:36,006 - INFO - Resulting shapes are ((2, 5), (1, 5), (2,), (1,))
+2023-07-29 19:47:17,335 - INFO - Data collected in 3.03s, its shape: (3613769, 8)
+2023-07-29 19:47:17,337 - INFO - Preprocessing started...
+2023-07-29 19:47:17,342 - INFO - Data preprocessed in 0.00s
+2023-07-29 19:47:17,342 - INFO - Resulting shapes are ((2, 5), (1, 5), (2,), (1,))
+2023-07-29 19:47:17,343 - INFO - Preprocessing started...
+2023-07-29 19:47:17,348 - INFO - Data preprocessed in 0.00s
+2023-07-29 19:47:17,348 - INFO - Resulting shapes are ((2, 5), (1, 5), (2,), (1,))
+2023-07-29 19:48:51,380 - INFO - Data collected in 3.05s, its shape: (3613769, 8)
+2023-07-29 19:48:51,382 - INFO - Preprocessing started...
+2023-07-29 19:48:51,387 - INFO - Data preprocessed in 0.00s
+2023-07-29 19:48:51,387 - INFO - Resulting shapes are ((2, 5), (1, 5), (2,), (1,))
+2023-07-29 19:48:51,388 - INFO - Preprocessing started...
+2023-07-29 19:48:51,392 - INFO - Data preprocessed in 0.00s
+2023-07-29 19:48:51,393 - INFO - Resulting shapes are ((2, 5), (1, 5), (2,), (1,))
+2023-07-29 19:48:54,473 - INFO - Data collected in 3.08s, its shape: (3613769, 8)
+2023-07-29 19:48:54,473 - INFO - Preprocessing started...
+2023-07-29 19:49:13,964 - INFO - Data preprocessed in 19.49s
+2023-07-29 19:49:13,965 - INFO - Resulting shapes are ((2891015, 10), (722754, 10), (2891015,), (722754,))
+2023-07-29 19:55:13,852 - INFO - Model fitted in 359.88s
+2023-07-29 19:55:13,853 - INFO - ...and saved as models/model.joblib
+2023-07-29 19:55:13,853 - INFO - Metrics are: {'mae': 4.639182270671278, 'mse': 105.49554479100232, 'rmse': 10.271102413616676}

@@ -24,7 +24,6 @@ params = {
 
 data_path = "data/bitcoin-historical-data.zip"
 
-@task(retries=3, retry_delay_seconds=2)
 def get_data(file_path):
     st = time.time()
     data = pd.read_csv(file_path)
@@ -33,7 +32,6 @@ def get_data(file_path):
 
     return data
 
-@task
 def preprocess(data):
     st = time.time()
     utils.logger.info(f"Preprocessing started..." )
@@ -63,7 +61,6 @@ def preprocess(data):
 
     return xtr, xts, ytr, yts
 
-@task(log_prints=True)
 def fit_model(xtr, xts, ytr, yts):
     st = time.time()
 
@@ -93,7 +90,6 @@ def fit_model(xtr, xts, ytr, yts):
 
     return pipeline, metrics
 
-@task
 def params_optim(xtr, xts, ytr, yts):
     st = time.time()
     param_grid = {
@@ -125,7 +121,6 @@ def params_optim(xtr, xts, ytr, yts):
 
     return None
 
-@flow
 def train_sequence():
     data = get_data(file_path=data_path)
     data = preprocess(data)

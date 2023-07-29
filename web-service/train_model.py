@@ -22,8 +22,6 @@ params = {
     "n_estimators": 300
 }
 
-data_path = "data/bitcoin-historical-data.zip"
-
 @task(retries=3, retry_delay_seconds=2)
 def get_data(file_path):
     st = time.time()
@@ -57,6 +55,8 @@ def preprocess(data):
         test_size=0.2,
         random_state=42
     )
+    # save reference for grafana
+    pd.concat([xts, yts], axis=1).to_parquet("data/reference.parquet", index=False)
 
     utils.logger.info(f"Data preprocessed in {time.time()-st :.2f}s" )
     utils.logger.info(f"Resulting shapes are {xtr.shape, xts.shape, ytr.shape, yts.shape}" )
@@ -76,7 +76,7 @@ def fit_model(xtr, xts, ytr, yts):
     # fit & predict
     pipeline.fit(xtr, ytr)
     ypr = pipeline.predict(xts)
-
+    # check metrics
     metrics = {
         "mae": mean_absolute_error(yts, ypr),
         "mse": mean_squared_error(yts, ypr),
@@ -85,7 +85,6 @@ def fit_model(xtr, xts, ytr, yts):
 
     file_path = "models/model.joblib"
     joblib.dump(pipeline, file_path)
-
 
     utils.logger.info(f"Model fitted in {time.time()-st :.2f}s" )
     utils.logger.info(f"...and saved as {file_path}" )
@@ -96,6 +95,8 @@ def fit_model(xtr, xts, ytr, yts):
 @task
 def params_optim(xtr, xts, ytr, yts):
     st = time.time()
+
+    # grid of parameters to optimize
     param_grid = {
         'max_depth': [3, 5, 7],
         'learning_rate': [0.01, 0.1, 0.2],
@@ -107,9 +108,9 @@ def params_optim(xtr, xts, ytr, yts):
             mlflow.set_tag("version", f"0.0.{i}")
             mlflow.log_params(params)
 
+            # initialize and fit the model
             xgb_reg = xgb.XGBRegressor(objective='reg:squarederror', **params)
             xgb_reg.fit(xtr, ytr)
-
             ypr = xgb_reg.predict(xts)
             metrics = {
                 "mae": mean_absolute_error(yts, ypr),
@@ -117,6 +118,7 @@ def params_optim(xtr, xts, ytr, yts):
                 "rmse": np.sqrt(mean_squared_error(yts, ypr))
             }
 
+            # logging metrics and models
             mlflow.log_metrics(metrics)
             mlflow.sklearn.log_model(xgb_reg, "model")
             joblib.dump(xgb_reg, "models/model.joblib")
@@ -127,7 +129,7 @@ def params_optim(xtr, xts, ytr, yts):
 
 @flow
 def train_sequence():
-    data = get_data(file_path=data_path)
+    data = get_data(file_path="data/bitcoin-historical-data.zip")
     data = preprocess(data)
     model, metrics = fit_model(data[0],data[1],data[2],data[3])
 

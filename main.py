@@ -2,11 +2,15 @@ import mlflow
 import train_model
 import utils
 
+import unittest
+import unit_tests
+
 '''
 1: "parameters optimization",
 2: "final model training"
+3: "unit tests"
 '''
-MODE = 2
+MODE = 3
 
 if __name__ == '__main__':
     mlflow.set_tracking_uri("sqlite:///mlruns.db")
@@ -26,5 +30,8 @@ if __name__ == '__main__':
             utils.logger.info("Initializing model fit sequence...")
             model, metrics = train_model.train_sequence()
             utils.logger.info("Model fit sequence completed")
-            mlflow.log_metrics(metrics)
 
+    elif MODE == 3:
+        suite = unittest.TestLoader().loadTestsFromModule(unit_tests)
+        runner = unittest.TextTestRunner(verbosity=2)
+        result = runner.run(suite)

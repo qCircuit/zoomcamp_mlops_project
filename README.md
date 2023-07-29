@@ -6,7 +6,7 @@ The [dataset](https://www.kaggle.com/datasets/mczielinski/bitcoin-historical-dat
 !kaggle datasets download -d mczielinski/bitcoin-historical-data
 ```
 
-**Description:** 
+**Description:**
 
 Bitcoin, the pioneering cryptocurrency, has gained significant popularity and attention in recent years. Its decentralized nature, limited supply, and potential for high returns have made it a preferred investment option for individuals and institutions. As a result, predicting the price of Bitcoin has become increasingly important for various stakeholders, including investors, traders, financial institutions, and policymakers.
 
@@ -38,6 +38,14 @@ Experiment tracking is perfromed by mlflow. The result of hyperparameters tuning
 
 ![mlflow](images/mlflow.png)
 
+To execute the tracking you should perform the following sequence:
+
+```
+1. activate prefect server: prefect server start
+2. run the main.py (within you can select either the optimization or single fit mode): python3 main.py
+3. activate user interface: mlflow ui --backend-store-uri sqlite:///mlruns.db
+```
+
 **Orchestration**
 
 The project management processes are controlled and tracked via *prefect*:
@@ -67,3 +75,24 @@ Project infastructure is deployed with prefect to the git repo and scheduled via
 prefect project init
 prefect deploy train_model.py:train_sequence -n bitcoin_price_prediction -p bitcoin_price_prediction
 ```
+
+**Dockerize**
+Prediction module also deployed separately within app [web-service](web-service). It can be run either using flask or gunicorn. Alternatively, since it is dockerized:
+
+```
+docker run -it --rm -p 9696:9696 bitcoin_price_prediction
+```
+
+the app can be brought up via docker as a prediction service.
+
+**Monitoring**
+
+Monitoring is performed with the means of evidently (see [baseline](baseline.ipynb))
+
+**Unit Tests**
+Unit and integrity tests are located in module: [unit_tests.py](unit_tests.py) and can be called via selecting MODE=3 in the (main.py)[main.py] file. All the mentioned tests are passed:
+
+![tests](images/tests.png)
+
+**Pre-commit hook**
+The configuration of the hooks is set in [.pre-commit-config.yaml](.pre-commit-config.yaml) file.
